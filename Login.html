@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Login | Skin Cancer Detection</title>
+<style>
+  * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif;}
+  body {height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(to bottom, rgba(30,58,138,0.85), rgba(0,0,0,0.3)), url('Gemini_Generated_Image_7fhgwx7fhgwx7fhg.png') no-repeat center top fixed; background-size:cover; color:#fff; position:relative;}
+  body::before {content:''; position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.3); z-index:0;}
+  .auth-container {position:relative; z-index:1; backdrop-filter: blur(20px); background-color: rgba(255,255,255,0.05); padding:50px 40px; border-radius:20px; box-shadow:0 15px 50px rgba(0,0,0,0.6); width:380px; text-align:center;}
+  .form-box h2 {margin-bottom:10px; font-size:32px; font-weight:600; text-shadow: 2px 2px 8px rgba(0,0,0,0.6);}
+  .form-box .tagline {margin-bottom:25px; font-size:16px; color:#a0e0d0; text-shadow:1px 1px 3px rgba(0,0,0,0.5);}
+  .input-field {width:100%; padding:16px; margin:12px 0; border:none; border-radius:12px; background-color: rgba(255,255,255,0.15); color:#fff; font-size:16px; outline:none; transition:0.3s;}
+  .input-field::placeholder {color:#e0e0e0;}
+  .input-field:focus {background-color: rgba(255,255,255,0.25); box-shadow: 0 0 10px rgba(255,255,255,0.6);}
+  .btn {width:100%; padding:16px; margin-top:20px; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:16px; transition:0.3s; background: linear-gradient(45deg, #1dd1a1, #10ac84); color:#fff;}
+  .btn:hover {background: linear-gradient(45deg, #10ac84, #1dd1a1); transform: translateY(-2px); box-shadow:0 6px 15px rgba(0,0,0,0.3);}
+  .toggle-text {text-align:center; color:#ccc; margin-top:20px; font-size:14px;}
+  .toggle-text a {color:#1dd1a1; text-decoration:none; font-weight:bold; transition:0.3s;}
+  .toggle-text a:hover {text-decoration:underline; color:#10ac84;}
+  .hidden {display:none;}
+  @media(max-width:400px){.auth-container{width:90%; padding:35px 25px;}}
+</style>
+</head>
+<body>
+
+<div class="auth-container">
+  <div class="form-box">
+    <h2 id="form-title">Welcome Back</h2>
+    <div class="tagline">Skin Cancer Detection And Classification</div>
+    <form id="auth-form">
+      <input type="text" id="name" placeholder="Full Name" class="input-field hidden" required />
+      <input type="email" id="email" placeholder="Email" class="input-field" required />
+      <input type="password" id="password" placeholder="Password" class="input-field" required />
+      <button type="submit" class="btn">Login</button>
+    </form>
+    <p class="toggle-text">
+      Don't have an account? 
+      <a href="#" id="toggle-link">Sign up</a>
+    </p>
+  </div>
+</div>
+
+<script>
+const toggleLink = document.getElementById("toggle-link");
+const formTitle = document.getElementById("form-title");
+const nameField = document.getElementById("name");
+const authForm = document.getElementById("auth-form");
+const btn = authForm.querySelector(".btn");
+
+let isSignup = false;
+
+toggleLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  isSignup = !isSignup;
+  nameField.classList.toggle("hidden", !isSignup);
+  formTitle.textContent = isSignup ? "Create Account" : "Welcome Back";
+  toggleLink.textContent = isSignup ? "Log in" : "Sign up";
+  btn.textContent = isSignup ? "Sign up" : "Login";
+});
+
+authForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  let users = JSON.parse(localStorage.getItem("users") || "[]");
+
+  if(isSignup){
+    const name = document.getElementById("name").value;
+    if(users.find(u => u.email === email)){
+      alert("User already exists!");
+      return;
+    }
+    users.push({name,email,password});
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("Account created!");
+    isSignup = false;
+    nameField.classList.add("hidden");
+    formTitle.textContent = "Welcome Back";
+    toggleLink.textContent = "Sign up";
+    btn.textContent = "Login";
+  } else {
+    const user = users.find(u => u.email === email && u.password === password);
+    if(user){
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      window.location.href = "dashboard.html";
+    } else {
+      alert("Invalid credentials!");
+    }
+  }
+});
+</script>
+
+</body>
+</html>
