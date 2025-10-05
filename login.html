@@ -1,96 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login | Skin Cancer Detection</title>
+
+<!-- Google Fonts + AOS -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
 <style>
-  * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif;}
-  body {height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(to bottom, rgba(30,58,138,0.85), rgba(0,0,0,0.3)), url('Gemini_Generated_Image_7fhgwx7fhgwx7fhg.png') no-repeat center top fixed; background-size:cover; color:#fff; position:relative;}
-  body::before {content:''; position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.3); z-index:0;}
-  .auth-container {position:relative; z-index:1; backdrop-filter: blur(20px); background-color: rgba(255,255,255,0.05); padding:50px 40px; border-radius:20px; box-shadow:0 15px 50px rgba(0,0,0,0.6); width:380px; text-align:center;}
-  .form-box h2 {margin-bottom:10px; font-size:32px; font-weight:600; text-shadow: 2px 2px 8px rgba(0,0,0,0.6);}
-  .form-box .tagline {margin-bottom:25px; font-size:16px; color:#a0e0d0; text-shadow:1px 1px 3px rgba(0,0,0,0.5);}
-  .input-field {width:100%; padding:16px; margin:12px 0; border:none; border-radius:12px; background-color: rgba(255,255,255,0.15); color:#fff; font-size:16px; outline:none; transition:0.3s;}
-  .input-field::placeholder {color:#e0e0e0;}
-  .input-field:focus {background-color: rgba(255,255,255,0.25); box-shadow: 0 0 10px rgba(255,255,255,0.6);}
-  .btn {width:100%; padding:16px; margin-top:20px; border:none; border-radius:12px; font-weight:bold; cursor:pointer; font-size:16px; transition:0.3s; background: linear-gradient(45deg, #1dd1a1, #10ac84); color:#fff;}
-  .btn:hover {background: linear-gradient(45deg, #10ac84, #1dd1a1); transform: translateY(-2px); box-shadow:0 6px 15px rgba(0,0,0,0.3);}
-  .toggle-text {text-align:center; color:#ccc; margin-top:20px; font-size:14px;}
-  .toggle-text a {color:#1dd1a1; text-decoration:none; font-weight:bold; transition:0.3s;}
-  .toggle-text a:hover {text-decoration:underline; color:#10ac84;}
-  .hidden {display:none;}
-  @media(max-width:400px){.auth-container{width:90%; padding:35px 25px;}}
+  * {margin:0; padding:0; box-sizing:border-box;}
+  body{
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: linear-gradient(135deg, #1E3A8A, #10B981);
+    color:#111827;
+  }
+
+  .login-container{
+    background:white;
+    border-radius:16px;
+    padding:40px 35px;
+    width:360px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.15);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .login-container::before{
+    content:"";
+    position:absolute;
+    top:-50px; right:-50px;
+    width:200px; height:200px;
+    background:rgba(16,185,129,0.1);
+    border-radius:50%;
+    z-index:0;
+  }
+
+  .login-container::after{
+    content:"";
+    position:absolute;
+    bottom:-60px; left:-60px;
+    width:220px; height:220px;
+    background:rgba(30,58,138,0.1);
+    border-radius:50%;
+    z-index:0;
+  }
+
+  h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#1E3A8A;
+    z-index:1;
+    position:relative;
+  }
+
+  form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    position:relative;
+    z-index:1;
+  }
+
+  input{
+    padding:12px 15px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:15px;
+    transition:.3s;
+  }
+
+  input:focus{
+    border-color:#10B981;
+    box-shadow:0 0 8px rgba(16,185,129,0.3);
+    outline:none;
+  }
+
+  button{
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#10B981;
+    color:white;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+  }
+
+  button:hover{
+    background:#0ea96f;
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(16,185,129,0.25);
+  }
+
+  .links{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    margin-top:10px;
+    color:#6B7280;
+  }
+
+  .links a{
+    text-decoration:none;
+    color:#1E3A8A;
+    font-weight:600;
+  }
+
+  .links a:hover{
+    text-decoration:underline;
+  }
+
+  @media(max-width:400px){
+    .login-container{ width:90%; padding:30px 25px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="auth-container">
-  <div class="form-box">
-    <h2 id="form-title">Welcome Back</h2>
-    <div class="tagline">Skin Cancer Detection And Classification</div>
-    <form id="auth-form">
-      <input type="text" id="name" placeholder="Full Name" class="input-field hidden" required />
-      <input type="email" id="email" placeholder="Email" class="input-field" required />
-      <input type="password" id="password" placeholder="Password" class="input-field" required />
-      <button type="submit" class="btn">Login</button>
-    </form>
-    <p class="toggle-text">
-      Don't have an account? 
-      <a href="#" id="toggle-link">Sign up</a>
-    </p>
+<div class="login-container" data-aos="fade-up">
+  <h2>Login</h2>
+  <form id="loginForm">
+    <input type="email" placeholder="Email" id="email" required />
+    <input type="password" placeholder="Password" id="password" required />
+    <button type="submit">Sign In</button>
+  </form>
+  <div class="links">
+    <a href="register.html">Sign Up</a>
+    <a href="#">Forgot Password?</a>
   </div>
 </div>
 
+<!-- AOS + JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-const toggleLink = document.getElementById("toggle-link");
-const formTitle = document.getElementById("form-title");
-const nameField = document.getElementById("name");
-const authForm = document.getElementById("auth-form");
-const btn = authForm.querySelector(".btn");
+  AOS.init({duration:700, once:true});
 
-let isSignup = false;
+  const loginForm = document.getElementById("loginForm");
 
-toggleLink.addEventListener("click", (e) => {
-  e.preventDefault();
-  isSignup = !isSignup;
-  nameField.classList.toggle("hidden", !isSignup);
-  formTitle.textContent = isSignup ? "Create Account" : "Welcome Back";
-  toggleLink.textContent = isSignup ? "Log in" : "Sign up";
-  btn.textContent = isSignup ? "Sign up" : "Login";
-});
+  loginForm.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-authForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  let users = JSON.parse(localStorage.getItem("users") || "[]");
-
-  if(isSignup){
-    const name = document.getElementById("name").value;
-    if(users.find(u => u.email === email)){
-      alert("User already exists!");
-      return;
-    }
-    users.push({name,email,password});
-    localStorage.setItem("users", JSON.stringify(users));
-    alert("Account created!");
-    isSignup = false;
-    nameField.classList.add("hidden");
-    formTitle.textContent = "Welcome Back";
-    toggleLink.textContent = "Sign up";
-    btn.textContent = "Login";
-  } else {
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
     const user = users.find(u => u.email === email && u.password === password);
+
     if(user){
       localStorage.setItem("currentUser", JSON.stringify(user));
+      alert("Login successful!");
       window.location.href = "dashboard.html";
     } else {
-      alert("Invalid credentials!");
+      alert("Invalid email or password!");
     }
-  }
-});
+  });
 </script>
 
 </body>
 </html>
+
