@@ -3,37 +3,231 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login | Skin Cancer Detection</title>
+<title>Login / Signup | Skin Cancer Detection</title>
 
 <!-- Google Fonts + AOS -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 
 <style>
-  * {margin:0; padding:0; box-sizing:border-box;}
+  *{margin:0; padding:0; box-sizing:border-box;}
   body{
     font-family:'Inter', sans-serif;
     min-height:100vh;
     display:flex;
     align-items:center;
     justify-content:center;
-    background: linear-gradient(135deg, #1E3A8A, #10B981);
-    color:#111827;
+    background:linear-gradient(135deg,#1E3A8A,#10B981);
   }
 
-  .login-container{
-    background:white;
+  .auth-container{
+    background:rgba(255,255,255,0.9);
     border-radius:16px;
     padding:40px 35px;
-    width:360px;
+    width:370px;
     box-shadow:0 20px 50px rgba(0,0,0,0.15);
+    backdrop-filter:blur(12px);
     position:relative;
     overflow:hidden;
+    transition: all .4s ease;
   }
 
-  .login-container::before{
-    content:"";
-    position:absolute;
+  .auth-container h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#1E3A8A;
+  }
+
+  .tabs{
+    display:flex;
+    justify-content:space-around;
+    margin-bottom:25px;
+  }
+
+  .tabs button{
+    flex:1;
+    padding:10px;
+    background:none;
+    border:none;
+    font-size:16px;
+    font-weight:600;
+    color:#6B7280;
+    cursor:pointer;
+    border-bottom:3px solid transparent;
+    transition:.3s;
+  }
+
+  .tabs button.active{
+    color:#1E3A8A;
+    border-bottom:3px solid #10B981;
+  }
+
+  form{
+    display:none;
+    flex-direction:column;
+    gap:18px;
+    animation:fade .5s ease;
+  }
+
+  form.active{ display:flex; }
+
+  @keyframes fade{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  input{
+    padding:12px 15px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:15px;
+    transition:.3s;
+  }
+
+  input:focus{
+    border-color:#10B981;
+    box-shadow:0 0 8px rgba(16,185,129,0.3);
+    outline:none;
+  }
+
+  button.submit{
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#10B981;
+    color:white;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+  }
+
+  button.submit:hover{
+    background:#0ea96f;
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(16,185,129,0.25);
+  }
+
+  .links{
+    display:flex;
+    justify-content:center;
+    font-size:13px;
+    margin-top:10px;
+    color:#6B7280;
+  }
+
+  .links a{
+    text-decoration:none;
+    color:#1E3A8A;
+    font-weight:600;
+    margin-left:4px;
+  }
+
+  .links a:hover{
+    text-decoration:underline;
+  }
+
+  @media(max-width:400px){
+    .auth-container{ width:90%; padding:30px 25px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="auth-container" data-aos="fade-up">
+  <h2>Welcome Back</h2>
+
+  <div class="tabs">
+    <button id="loginTab" class="active">Login</button>
+    <button id="signupTab">Sign Up</button>
+  </div>
+
+  <!-- Login Form -->
+  <form id="loginForm" class="active">
+    <input type="email" placeholder="Email" id="loginEmail" required />
+    <input type="password" placeholder="Password" id="loginPassword" required />
+    <button type="submit" class="submit">Sign In</button>
+  </form>
+
+  <!-- Signup Form -->
+  <form id="signupForm">
+    <input type="text" placeholder="Full Name" id="signupName" required />
+    <input type="email" placeholder="Email" id="signupEmail" required />
+    <input type="password" placeholder="Password" id="signupPassword" required />
+    <button type="submit" class="submit">Create Account</button>
+  </form>
+
+  <div class="links">
+    <span>Forgot your password?</span>
+    <a href="#">Reset</a>
+  </div>
+</div>
+
+<!-- AOS + JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+AOS.init({duration:700, once:true});
+
+const loginTab = document.getElementById('loginTab');
+const signupTab = document.getElementById('signupTab');
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+
+// Toggle forms
+loginTab.addEventListener('click', ()=>{
+  loginTab.classList.add('active');
+  signupTab.classList.remove('active');
+  loginForm.classList.add('active');
+  signupForm.classList.remove('active');
+});
+
+signupTab.addEventListener('click', ()=>{
+  signupTab.classList.add('active');
+  loginTab.classList.remove('active');
+  signupForm.classList.add('active');
+  loginForm.classList.remove('active');
+});
+
+// Signup logic
+signupForm.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const password = document.getElementById('signupPassword').value.trim();
+
+  let users = JSON.parse(localStorage.getItem('users') || '[]');
+  if(users.some(u => u.email === email)){
+    alert('Email already exists!');
+    return;
+  }
+
+  users.push({name, email, password});
+  localStorage.setItem('users', JSON.stringify(users));
+  alert('Account created successfully! You can now log in.');
+  signupForm.reset();
+  loginTab.click();
+});
+
+// Login logic
+loginForm.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const user = users.find(u => u.email === email && u.password === password);
+
+  if(user){
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    alert('Login successful!');
+    window.location.href = 'dashboard.html';
+  } else {
+    alert('Invalid credentials!');
+  }
+});
+</script>
+
+</body>
+</html>
     top:-50px; right:-50px;
     width:200px; height:200px;
     background:rgba(16,185,129,0.1);
@@ -163,4 +357,5 @@
 
 </body>
 </html>
+
 
