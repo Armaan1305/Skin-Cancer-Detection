@@ -27,7 +27,7 @@
 
   <!-- Menu -->
   <nav class="flex-1 p-4 space-y-2">
-    <a href="home.html" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-700 hover:scale-105">
+    <a href="index.html" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-700 hover:scale-105">
       <span class="material-icons mr-3"></span> Home
     </a>
     <a href="#" class="flex items-center px-4 py-2 rounded-lg transition hover:bg-blue-700 hover:scale-105">
@@ -50,137 +50,158 @@
   </div>
 </aside>
 
-  <!-- Main Content -->
-  <main class="flex-1 ml-64 p-8">
-    <div class="bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-xl p-8 mb-6 shadow-lg" data-aos="fade-up">
-      <h1 class="text-3xl font-bold">Welcome, <span id="user-name">User</span>!</h1>
-      <p class="mt-2 opacity-90">Monitor your scans, predictions, and history in one interactive dashboard.</p>
-    </div>
+<!-- Main Content -->
+<main class="flex-1 ml-64 p-8">
+  <div class="bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-xl p-8 mb-6 shadow-lg" data-aos="fade-up">
+    <h1 class="text-3xl font-bold">Welcome, <span id="user-name">User</span>!</h1>
+    <p class="mt-2 opacity-90">Monitor your scans, predictions, and history in one interactive dashboard.</p>
+  </div>
 
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-      <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="100">
-        <h3 class="text-blue-900 font-bold text-xl mb-2">Total Users</h3>
-        <p id="total-users" class="text-gray-700 text-lg">0</p>
-      </div>
-      <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="200">
-        <h3 class="text-blue-900 font-bold text-xl mb-2">Predictions Made</h3>
-        <p id="total-predictions" class="text-gray-700 text-lg">0</p>
-      </div>
-      <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="300">
-        <h3 class="text-blue-900 font-bold text-xl mb-2">Positive Cases</h3>
-        <p id="positive-cases" class="text-gray-700 text-lg">0</p>
-      </div>
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="100">
+      <h3 class="text-blue-900 font-bold text-xl mb-2">Total Users</h3>
+      <p id="total-users" class="text-gray-700 text-lg">0</p>
     </div>
-
-    <!-- Charts -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-      <div class="bg-white p-6 rounded-xl shadow" data-aos="fade-right">
-        <h3 class="font-bold text-blue-900 mb-4">Scans by Type</h3>
-        <canvas id="chart1" class="w-full"></canvas>
-      </div>
-      <div class="bg-white p-6 rounded-xl shadow" data-aos="fade-left">
-        <h3 class="font-bold text-blue-900 mb-4">Positive Cases Over Time</h3>
-        <canvas id="chart2" class="w-full"></canvas>
-      </div>
+    <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="200">
+      <h3 class="text-blue-900 font-bold text-xl mb-2">Predictions Made</h3>
+      <p id="total-predictions" class="text-gray-700 text-lg">0</p>
     </div>
-
-    <!-- Upload Section -->
-    <div class="bg-white rounded-xl p-6 shadow mb-6" data-aos="fade-up">
-      <h3 class="text-blue-900 font-bold mb-4">Upload Skin Image</h3>
-      <input type="file" id="image-upload" accept="image/*" class="w-full p-3 border rounded mb-4" />
-      <button id="analyze-btn" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded font-bold transition">Analyze</button>
+    <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition" data-aos="fade-up" data-aos-delay="300">
+      <h3 class="text-blue-900 font-bold text-xl mb-2">Positive Cases</h3>
+      <p id="positive-cases" class="text-gray-700 text-lg">0</p>
     </div>
+  </div>
 
-    <!-- Recent Predictions Table -->
-    <div class="bg-white rounded-xl p-6 shadow mb-6" data-aos="fade-up">
-      <h3 class="text-blue-900 font-bold mb-4">Recent Predictions</h3>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left">
-          <thead>
-            <tr class="bg-blue-900 text-white">
-              <th class="px-4 py-2">User</th>
-              <th class="px-4 py-2">Date</th>
-              <th class="px-4 py-2">Result</th>
-            </tr>
-          </thead>
-          <tbody id="recent-table"></tbody>
-        </table>
-      </div>
+  <!-- Charts -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="bg-white p-6 rounded-xl shadow" data-aos="fade-right">
+      <h3 class="font-bold text-blue-900 mb-4">Scans by Type</h3>
+      <canvas id="chart1" class="w-full"></canvas>
     </div>
+    <div class="bg-white p-6 rounded-xl shadow" data-aos="fade-left">
+      <h3 class="font-bold text-blue-900 mb-4">Positive Cases Over Time</h3>
+      <canvas id="chart2" class="w-full"></canvas>
+    </div>
+  </div>
 
-  </main>
-</div>
+  <!-- Upload Section -->
+  <div class="bg-white rounded-xl p-6 shadow mb-6" data-aos="fade-up">
+    <h3 class="text-blue-900 font-bold mb-4">Upload Skin Image</h3>
+    <input type="file" id="image-upload" accept="image/*" class="w-full p-3 border rounded mb-4" />
+    <button id="analyze-btn" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded font-bold transition">Analyze</button>
+  </div>
+
+  <!-- Recent Predictions Table -->
+  <div class="bg-white rounded-xl p-6 shadow mb-6" data-aos="fade-up">
+    <h3 class="text-blue-900 font-bold mb-4">Recent Predictions</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left">
+        <thead>
+          <tr class="bg-blue-900 text-white">
+            <th class="px-4 py-2">User</th>
+            <th class="px-4 py-2">Date</th>
+            <th class="px-4 py-2">Result</th>
+          </tr>
+        </thead>
+        <tbody id="recent-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
 
 <!-- Footer -->
 <footer class="text-center py-6 bg-blue-900 text-white rounded-t-xl mt-6">
-  &copy; 2025 Skin Cancer Detection • Built for Academic Demo • <a href="#" class="underline">Contact</a>
+  &copy; 2025 Skin Cancer Detection • <a href="index.html" class="underline">Home</a> • <a href="login.html" class="underline">Logout</a>
 </footer>
 
 <script>
 // Initialize AOS
 AOS.init({duration:700, once:true});
 
-// User info
-const logoutBtn = document.getElementById("logout");
+// Redirect to login if no user
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+if(!currentUser){ 
+  alert("Please login first!");
+  window.location.href = "login.html";
+}
+
+// Display username
+const userName = document.getElementById("user-name");
+userName.innerText = currentUser?.name || "User";
+
+// Logout
+document.getElementById("logout").addEventListener("click", ()=>{
+  localStorage.removeItem("currentUser");
+  window.location.href="login.html";
+});
+
+// Analyze Button Logic
 const analyzeBtn = document.getElementById("analyze-btn");
 const imageUpload = document.getElementById("image-upload");
-const userName = document.getElementById("user-name");
-const currentUser = JSON.parse(localStorage.getItem("currentUser")) || {name:'User', email:''};
-userName.innerText = currentUser.name || "User";
-if(!currentUser.email) window.location.href = "login.html";
-logoutBtn.addEventListener("click",()=>{localStorage.removeItem("currentUser");window.location.href="login.html";});
 
-// Load predictions
-function loadRecentPredictions(){
-  const predictions = JSON.parse(localStorage.getItem("predictions")||"[]");
-  const userPredictions = predictions.filter(p=>p.userEmail===currentUser.email);
-  const tbody = document.getElementById("recent-table");
-  tbody.innerHTML="";
-  userPredictions.forEach(p=>{
-    tbody.innerHTML+=`<tr class="border-b"><td class="px-4 py-2">${currentUser.name}</td><td class="px-4 py-2">${p.date}</td><td class="px-4 py-2">${p.result}</td></tr>`;
-  });
-  document.getElementById("total-users").innerText = JSON.parse(localStorage.getItem("users")||"[]").length;
-  document.getElementById("total-predictions").innerText = predictions.length;
-  document.getElementById("positive-cases").innerText = predictions.filter(p=>p.result==="Malignant").length;
-}
-loadRecentPredictions();
-
-// Analyze button
 analyzeBtn.addEventListener("click", () => {
   const file = imageUpload.files[0];
-  if (!file) { 
-    alert("Please select an image"); 
-    return; 
-  }
+  if(!file){ alert("Please select an image"); return; }
 
-  const classes = ["SCC", "Melanoma", "BCC"]; // Only 3 classes
-  const randomIndex = Math.floor(Math.random() * classes.length);
+  const classes = ["SCC","Melanoma","BCC"];
+  const randomIndex = Math.floor(Math.random()*classes.length);
   const result = classes[randomIndex];
 
-  // Store in localStorage
-  const predictions = JSON.parse(localStorage.getItem("predictions") || "[]");
+  const predictions = JSON.parse(localStorage.getItem("predictions")||"[]");
   predictions.push({
     userEmail: currentUser.email,
     result: result,
     date: new Date().toLocaleString()
   });
   localStorage.setItem("predictions", JSON.stringify(predictions));
-
-  // Refresh table & stats
   loadRecentPredictions();
 
-  // Show result
-  alert("Analysis Complete: " + result);
+  alert("Analysis Complete: "+result);
 });
+
+// Load Predictions & Stats
+function loadRecentPredictions(){
+  const predictions = JSON.parse(localStorage.getItem("predictions")||"[]");
+  const userPredictions = predictions.filter(p=>p.userEmail===currentUser.email);
+  const tbody = document.getElementById("recent-table");
+  tbody.innerHTML = "";
+  userPredictions.forEach(p=>{
+    tbody.innerHTML+=`<tr class="border-b"><td class="px-4 py-2">${currentUser.name}</td><td class="px-4 py-2">${p.date}</td><td class="px-4 py-2">${p.result}</td></tr>`;
+  });
+
+  document.getElementById("total-users").innerText = JSON.parse(localStorage.getItem("users")||"[]").length;
+  document.getElementById("total-predictions").innerText = predictions.length;
+  document.getElementById("positive-cases").innerText = predictions.filter(p=>p.result==="Melanoma").length;
+}
 
 // Charts
 const ctx1=document.getElementById('chart1').getContext('2d');
-new Chart(ctx1,{type:'bar',data:{labels:['Melanoma','Benign','Nevus','Other'],datasets:[{label:'Scans',data:[32,58,24,12],backgroundColor:'#10B981'}]},options:{responsive:true,plugins:{legend:{display:false}}}});
-const ctx2=document.getElementById('chart2').getContext('2d');
-new Chart(ctx2,{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May'],datasets:[{label:'Positive Cases',data:[10,20,15,25,30],borderColor:'#1E3A8A',backgroundColor:'rgba(30,58,138,0.1)',tension:0.3}]}});
-</script>
+new Chart(ctx1,{
+  type:'bar',
+  data:{
+    labels:['SCC','Melanoma','BCC'],
+    datasets:[{label:'Scans',data:[12,7,5],backgroundColor:'#10B981'}]
+  },
+  options:{responsive:true,plugins:{legend:{display:false}}}
+});
 
+const ctx2=document.getElementById('chart2').getContext('2d');
+new Chart(ctx2,{
+  type:'line',
+  data:{
+    labels:['Jan','Feb','Mar','Apr','May'],
+    datasets:[{
+      label:'Positive Cases',
+      data:[3,5,2,6,4],
+      borderColor:'#1E3A8A',
+      backgroundColor:'rgba(30,58,138,0.1)',
+      tension:0.3
+    }]
+  }
+});
+</script>
 </body>
 </html>
 
